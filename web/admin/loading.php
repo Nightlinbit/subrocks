@@ -1,0 +1,1 @@
+<div class="sr-loading"><span class="loading-icon"></span><span class="loading-label">Loading...</span></div>
