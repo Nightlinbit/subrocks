@@ -295,15 +295,15 @@
 
                     <div id="favorite-panel" style="display: none;">
                     <?php if(!isset($_SESSION['siteusername'])) { ?>
-                        <div class="benifits-outer-front" style="height: unset;">
-                            <div class="benifits-inner-front" style="float: unset;width: unset;margin-top:unset;">
+                        <div class="benifits-outer-front">
+                            <div class="benifits-inner-front">
                                 <b>Want to favorite this video?</b><br>
                                 <a href="/sign_up">Sign up for a SubRocks Account</a>
                             </div>
                         </div>
                         <?php } else { ?>
-                            <div class="benifits-outer-front" style="height: unset;">
-                                <div class="benifits-inner-front" style="float: unset;width: unset;margin-top:unset;">
+                            <div class="benifits-outer-front">
+                                <div class="benifits-inner-front">
                                     <?php if($_video['favorited'] == false) { ?>
                                         <a href="/get/favorite?v=<?php echo $_video['rid']; ?>"><h3>Favorite Video</h3></a>
                                     <?php } else { ?>
@@ -316,15 +316,15 @@
 
                     <div id="playlist-panel" style="display: none;">
                     <?php if(!isset($_SESSION['siteusername'])) { ?>
-                        <div class="benifits-outer-front" style="height: unset;">
-                            <div class="benifits-inner-front" style="float: unset;width: unset;margin-top:unset;">
+                        <div class="benifits-outer-front">
+                            <div class="benifits-inner-front">
                                 <b>Want to make playlists?</b><br>
                                 <a href="/sign_up">Sign up for a SubRocks Account</a>
                             </div>
                         </div>
                         <?php } else { ?>
-                            <div class="benifits-outer-front" style="height: unset;">
-                                <div class="benifits-inner-front" style="float: unset;width: unset;margin-top:unset;">
+                            <div class="benifits-outer-front">
+                                <div class="benifits-inner-front">
                                     <?php
                                         $stmt = $conn->prepare("SELECT * FROM playlists WHERE author = ? ORDER BY id DESC");
                                         $stmt->bind_param("s", $_SESSION['siteusername']);
@@ -353,15 +353,15 @@
 
                     <div id="flag-panel" style="display: none;">
                         <?php if(!isset($_SESSION['siteusername'])) { ?>
-                        <div class="benifits-outer-front" style="height: unset;">
-                            <div class="benifits-inner-front" style="float: unset;width: unset;margin-top:unset;">
+                        <div class="benifits-outer-front">
+                            <div class="benifits-inner-front">
                                 <b>Want to flag this video?</b><br>
                                 <a href="/sign_up">Sign up for a SubRocks Account</a>
                             </div>
                         </div>
                         <?php } else { ?>
-                            <div class="benifits-outer-front" style="height: unset;">
-                                <div class="benifits-inner-front" style="float: unset;width: unset;margin-top:unset;">
+                            <div class="benifits-outer-front">
+                                <div class="benifits-inner-front">
                                 By clicking on the link below, you agree that this video is actually breaking the rules in our <a href="#">Terms of Service</a>.<br><br>
 
                                 <a href="/get/report?v=<?php echo $_video['rid']; ?>">Report Video</a>
@@ -385,10 +385,10 @@
                                         $video = $_video_fetch_utils->fetch_video_rid($video['video']);
                             ?>
                                 <div class="grid-item" style="animation: scale-up-recent 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;">
-                                    <a href="/watch?v=<?php echo $video['rid']; ?>">
+									<a href="/watch?v=<?php echo $video['rid']; ?>">
                                     <img class="thumbnail" onerror="this.src='/dynamic/thumbs/default.png'" src="/dynamic/thumbs/<?php echo htmlspecialchars($video['thumbnail']); ?>">
                                     </a>
-                                    <div class="video-info-grid">
+									<div class="video-info-grid">
                                         <a href="/watch?v=<?php echo $video['rid']; ?>"><?php echo htmlspecialchars($video['title']); ?></a><br>
                                         <span class="video-info-small">
                                             <span class="video-views"><?php echo $_video_fetch_utils->fetch_video_views($video['rid']); ?> views</span><br>
@@ -643,10 +643,10 @@
                             }
                         }
                     </script>
-                    <a href="/user/<?php echo htmlspecialchars($_video['author']); ?>">
+					<a href="/user/<?php echo htmlspecialchars($_video['author']); ?>">
                     <img src="/dynamic/pfp/<?php echo $_user_fetch_utils->fetch_user_pfp($_video['author']); ?>">
                     </a>
-                    <span class="video-author-info">
+					<span class="video-author-info">
                         <a href="/user/<?php echo htmlspecialchars($_video['author']); ?>">
                             <b><?php echo htmlspecialchars($_video['author']); ?></b>
                         </a><br>

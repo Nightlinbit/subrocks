@@ -5,10 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/static/css/new/www-core.css">
         <script src='https://www.google.com/recaptcha/api.js' async defer></script>
-        <script src='/static/js/onLogin.js'></script>
+        <script>function onLogin(token){ document.getElementById('submitform').submit(); }</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="/static/js/channel-customization.js"></script>
-        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; *.googlesyndication.com *.bootstrapcdn.com *.jsdelivr.net *.youtube.com *.google.com *.gstatic.com; img-src 'self' images.weserv.nl; style-src 'self' *.bootstrapcdn.com 'unsafe-inline' default-src;">
         <style>
             .channel-box-top {
                 background: <?php echo htmlspecialchars($_user['primary_color']); ?>;
@@ -187,14 +186,6 @@
                 position: relative;
                 bottom: -11px;
             }
-
-            /* custom css */
-            <?php
-                $_disallowed = array("<", ">", "<?php", "?>", "behavior: url");
-                $_user['css'] = str_replace($_disallowed, "", $_user['css']);
-
-                echo htmlspecialchars($_user['css']);
-            ?>
         </style>
     </head>
     <body>
@@ -210,14 +201,14 @@
             <?php if(!empty($_user['banner'])) { ?>
                 <img src="/dynamic/banners/<?php echo $_user['banner']; ?>" style="width: 970px;height: 75px;">
             <?php } ?>
-            <div id="top-channel-section" style="border-radius:3px;padding:5px;overflow: auto;background-color: <?php echo htmlspecialchars($_user['primary_color']); ?>;opacity: <?php echo htmlspecialchars($_user['transparency']); ?>">
+            <div style="border-radius:3px;padding:5px;overflow: auto;background-color: <?php echo htmlspecialchars($_user['primary_color']); ?>;opacity: <?php echo htmlspecialchars($_user['transparency']); ?>">
             <div class="www-channel-top" style="overflow: auto;">    
                 <div style="background: <?php echo htmlspecialchars($_user['secondary_color']); ?>;color: <?php echo htmlspecialchars($_user['primary_color_text']); ?>;padding: 2px;border-radius: 5px;">
                     <div class="www-channel-top">
-                        <a href="/user/<?php echo htmlspecialchars($_user['username']); ?>">
+						<a href="/user/<?php echo htmlspecialchars($_user['username']); ?>">
                         <img class="channel-pfp" src="/dynamic/pfp/<?php echo $_user['pfp']; ?>" style="vertical-align: middle;margin-right: 5px;width: 43px;height: 43px;">
                         </a>
-                        <h3 style="color:<?php echo htmlspecialchars($_user['primary_color']); ?>;display: inline-block;"><?php echo htmlspecialchars(substr($_user['username'], 0, 16)); ?>'s Channel</h3>
+						<h3 style="color:<?php echo htmlspecialchars($_user['primary_color']); ?>;display: inline-block;"><?php echo htmlspecialchars(substr($_user['username'], 0, 16)); ?>'s Channel</h3>
                         <?php if(@$_SESSION['siteusername'] != $_user['username']) { ?>
                             <a href="/get/<?php if($_user['subscribed'] == true) { ?>un<?php } ?>subscribe?n=<?php echo htmlspecialchars($_user['username']); ?>">
                                 <button style="margin: 0px;float: none;margin-left: 15px;" class="sub_button"><?php if($_user['subscribed'] == true) { ?>Unsubscribe<?php } else { ?>Subscribe<?php } ?></button>
@@ -228,7 +219,7 @@
                             </a>
                         <?php } ?>
                     </div>
-                    <div id="channel-top-right-ribb" style="float:right;background: <?php echo htmlspecialchars($_user['secondary_color']); ?>;color: <?php echo htmlspecialchars($_user['primary_color_text']); ?>;display: inline-block;height: 100%;width: 49%;position: relative;bottom: 60px;height: 61px;margin-bottom: -60px;">
+                    <div style="float:right;background: <?php echo htmlspecialchars($_user['secondary_color']); ?>;color: <?php echo htmlspecialchars($_user['primary_color_text']); ?>;display: inline-block;height: 100%;width: 49%;position: relative;bottom: 60px;height: 61px;margin-bottom: -60px;">
                         <div class="right_arrow"></div>
                             <div <?php if($_user['videos'] != 0) { ?>style="float: right;margin-top: 22px;"<?php } else { ?>style="margin-top: 22px;margin-left: 33px;"<?php } ?>>
                             <?php if($_user['videos'] != 0) { ?>
@@ -389,7 +380,7 @@
                             </style>
                             <a href="#" onclick="main()" class="view-button">
                                 <div class="contents" id="test2">
-                                    <div class="a box"></div>       
+                                    <div class="a box"></div>		
                                     <div class="a tri" style="height: 6px;position: absolute;top: 0;color:<?php echo htmlspecialchars($_user['third_color']); ?>;"></div>
                                     <div class="a yt"></div>
                                     <div class="a yc"></div>
@@ -917,7 +908,35 @@
                 </div>
 
                 <script>
+                    function selectWatch(id) {
+                        if(id == "#info-panel") {
+                            $("#info-panel").fadeIn(75);
+                            $("#favorite-panel").fadeOut(5);
+                            $("#playlist-panel").fadeOut(5);
+                            $("#flag-panel").fadeOut(5);
+                        }
 
+                        if(id == "#favorite-panel") {
+                            $("#info-panel").fadeOut(5);
+                            $("#favorite-panel").fadeIn(75);
+                            $("#playlist-panel").fadeOut(5);
+                            $("#flag-panel").fadeOut(5);
+                        }
+
+                        if(id == "#share-panel") {
+                            $("#info-panel").fadeOut(5);
+                            $("#favorite-panel").fadeOut(5);
+                            $("#playlist-panel").fadeIn(75);
+                            $("#flag-panel").fadeOut(5);
+                        }
+
+                        if(id == "#flag-panel") {
+                            $("#info-panel").fadeOut(5);
+                            $("#favorite-panel").fadeOut(5);
+                            $("#playlist-panel").fadeOut(5);
+                            $("#flag-panel").fadeIn(75);
+                        }
+                    }
                 </script>
                 <div class="www-channel-two-right">
                     <div class="www-channel-section" style="margin-top: 13px;overflow-y: scroll;max-height: 545px;">
@@ -984,10 +1003,10 @@
                         while($video = $result->fetch_assoc()) {
                     ?>
                         <div class="grid-item" style="">
-                            <a href="/user/<?php echo htmlspecialchars($video['author']); ?>">
+							<a href="/user/<?php echo htmlspecialchars($video['author']); ?>">
                             <img class="thumbnail" onerror="this.src='/dynamic/thumbs/default.png'" src="/dynamic/thumbs/<?php echo $_video_fetch_utils->parseTitle($video['thumbnail']); ?>">
                             </a>
-                            <div class="video-info-grid">
+							<div class="video-info-grid">
                                 <a style="color: <?php echo htmlspecialchars($_user['text_color']); ?>;display: inline-block;width: 127px;word-wrap: break-word;" href="/watch?v=<?php echo $video['rid']; ?>"><?php echo $_video_fetch_utils->parse_title($video['title']);  ?></a><br>
                                 <span class="video-info-small">
                                     <span class="video-views" style="color: <?php echo htmlspecialchars($_user['text_color']); ?>;"><?php echo $_video_fetch_utils->fetch_video_views($video['rid']); ?> views</span><br>
@@ -1012,8 +1031,19 @@
             <?php } ?>
             </div>
             <br>
+            <script>
+                function main() {
+                    $("#www-main").fadeIn(75);
+                    $("#www-grid").fadeOut(75);
+                }
+
+                function grid() {
+                    $("#www-main").fadeOut(75);
+                    $("#www-grid").fadeIn(75);
+                }
+            </script>
             
-            <div id="lower-part-channel" style="border-radius:3px;padding:5px;overflow: auto;background-color: <?php echo htmlspecialchars($_user['primary_color']); ?>;opacity: <?php echo htmlspecialchars($_user['transparency']); ?>">
+            <div style="border-radius:3px;padding:5px;overflow: auto;background-color: <?php echo htmlspecialchars($_user['primary_color']); ?>;opacity: <?php echo htmlspecialchars($_user['transparency']); ?>">
                 <div class="www-channel-left">
                     <?php 
                         error_reporting(0);
@@ -1039,7 +1069,6 @@
                 </div>
             </div>
         </div>
-        <script src='/static/js/channel.js'></script>
         <div id="channelbg">
             &nbsp;
         </div>

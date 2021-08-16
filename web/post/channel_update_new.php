@@ -64,13 +64,6 @@
         );
     }
     
-    if(!empty($_POST['cssset'])) {
-        $_user_update_utils->update_user_css(
-            $_SESSION['siteusername'], 
-            $_POST['css']
-        );
-    } 
-
     if(!empty($_POST['featuredset'])) {
         $_user_update_utils->update_user_featured_video(
             $_SESSION['siteusername'], 
@@ -203,7 +196,7 @@
             $_POST['solidcolor']
         );
     } 
-
+    
     if(!empty($_POST['bgoptionset'])) {
         $bgoption = $_POST['bgoption'];
         $bgcolor = $_POST['solidcolor'];

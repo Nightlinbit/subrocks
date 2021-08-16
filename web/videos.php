@@ -1,20 +1,12 @@
-<?php require($_SERVER['DOCUMENT_ROOT'] . "/static/important/config.inc.php"); ?>
-<?php require($_SERVER['DOCUMENT_ROOT'] . "/static/lib/new/base.php"); ?>
-<?php require($_SERVER['DOCUMENT_ROOT'] . "/static/lib/new/fetch.php"); ?>
 <?php
-    $_user_fetch_utils = new user_fetch_utils();
-    $_video_fetch_utils = new video_fetch_utils();
-    $_base_utils = new config_setup();
-    
-    $_base_utils->initialize_db_var($conn);
-    $_video_fetch_utils->initialize_db_var($conn);
-    $_user_fetch_utils->initialize_db_var($conn);
+  ob_start();
+  require($_SERVER['DOCUMENT_ROOT'] . "/static/module/core/headers.php"); 
 
     $_base_utils->initialize_page_compass("Videos");
 
-    $category = "None";
+    $category = "All";
 
-    // "None", "Film & Animation", "Autos & Vehicles", "Music", "Pets & Animals", "Sports", "Travel & Events", "Gaming", "People & Blogs", "Comedy", "Entertainment", "News & Politics", "Howto & Style", "Education", "Science & Technology", "Nonprofits & Activism"
+    // "All", "Film & Animation", "Autos & Vehicles", "Music", "Pets & Animals", "Sports", "Travel & Events", "Gaming", "People & Blogs", "Comedy", "Entertainment", "News & Politics", "Howto & Style", "Education", "Science & Technology", "Nonprofits & Activism"
     //handle category
 
     if(isset($_GET['c'])) 
@@ -33,7 +25,7 @@
             <div class="www-videos-left">
                 <h2>Videos</h2><br>
                 <ul class="videos-list">
-                    <?php $categories = ["None", "Film & Animation", "Autos & Vehicles", "Music", "Pets & Animals", "Sports", "Travel & Events", "Gaming", "People & Blogs", "Comedy", "Entertainment", "News & Politics", "Howto & Style", "Education", "Science & Technology", "Nonprofits & Activism"]; ?>
+                    <?php $categories = ["All", "Film & Animation", "Autos & Vehicles", "Music", "Pets & Animals", "Sports", "Travel & Events", "Gaming", "People & Blogs", "Comedy", "Entertainment", "News & Politics", "Howto & Style", "Education", "Science & Technology", "Nonprofits & Activism"]; ?>
                     <?php foreach($categories as $categoryTag) { ?>
                         <?php if($categoryTag == $category) { ?>
                             <li class=""><?php echo $categoryTag; ?></li>
@@ -51,7 +43,7 @@
                     </div>
                     <div class="videos-title-box-contents">
                             <?php
-                            if($category != "None") { 
+                            if($category != "All") { 
                                 $stmt56 = $conn->prepare("SELECT rid, title, thumbnail, duration, title, author, publish, description FROM videos WHERE category = ? ORDER BY id DESC");
                                 $stmt56->bind_param("s", $category);
                                 $stmt56->execute();
@@ -67,7 +59,7 @@
                             <?php
                             $results_per_page = 20;
 
-                            if($category != "None") { 
+                            if($category != "All") { 
                                 $stmt = $conn->prepare("SELECT rid, title, thumbnail, duration, title, author, publish, description FROM videos WHERE category = ? ORDER BY id DESC");
                                 $stmt->bind_param("s", $category);
                                 $stmt->execute();
@@ -93,7 +85,7 @@
 
                             $stmt->close();
 
-                            if($category != "None") { 
+                            if($category != "All") { 
                                 $stmt = $conn->prepare("SELECT rid, title, thumbnail, duration, title, author, publish, description FROM videos WHERE category = ? ORDER BY id DESC LIMIT ?, ?");
                                 $stmt->bind_param("sss", $category, $page_first_result, $results_per_page);
                                 $stmt->execute();
@@ -132,100 +124,9 @@
                                 } else { 
                                     $video['star_ratio'] = 0;
                                 }
+								$constructVideoGrid($video);
                                 ?>
-                            <div class="grid-item" style="animation: scale-up-recent 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;">
-                                <a href="/watch?v=<?php echo $video['rid']; ?>">
-                                    <img class="thumbnail" onerror="this.src='/dynamic/thumbs/default.png'" src="/dynamic/thumbs/<?php echo htmlspecialchars($video['thumbnail']); ?>">
-                                </a>
-                                <div class="video-info-grid">
-                                    <a style="display: inline-block;width: 125px;word-wrap: break-word;" href="/watch?v=<?php echo $video['rid']; ?>"><?php echo $_video_fetch_utils->parseTitle($video['title']); ?></a><br>
-                                    <span class="video-info-small">
-                                        <span class="video-views"><?php echo $_video_fetch_utils->fetch_video_views($video['rid']); ?> views</span>
-                                        
-                                        <span class="stars-watch" style="float: right;margin-right: 14px;">
-                                        <?php if($video['star_ratio'] == 0) { // THIS SHIT FUCKING SUCKS I DON'T KNOW HOW TO MAKE IT ANY BETTER THOUGH ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 0.5) { ?>
-                                        <img src="/static/img/half_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 1) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 1.5) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/half_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 2) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 2.5) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/half_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 3) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 3.5) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/half_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 4) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/empty_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 4.5) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/half_star_s.png">
-                                        <?php } ?>
-                                        <?php if($video['star_ratio'] == 5) { ?>
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <img src="/static/img/full_star_s.png">
-                                        <?php } ?>
-                                        </span>
-                                        <br>
-                                        <a href="/user/<?php echo htmlspecialchars($video['author']); ?>"><?php echo htmlspecialchars($video['author']); ?></a>
-                                    </span>
-                                </div>
-                            </div>
+                            
                         <?php } ?>
                     </div>
                 </div>
@@ -243,3 +144,5 @@
 
     </body>
 </html>
+<?php
+	ob_end_flush();

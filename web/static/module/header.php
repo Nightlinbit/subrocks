@@ -15,7 +15,7 @@
                 <a href="/inbox" style="margin-right: 5px;border-left: 0;"><b style="color:grey;line-height: 0;font-size: 12px;font-weight: 100;">(<?php echo $_user_fetch_utils->fetch_unread_pms($_SESSION['siteusername']); ?>)</b> <img style="width: 16px;vertical-align: middle;margin-bottom: 3px;" src="/static/img/mail_notif.png"></a>
             <?php } ?>
             <div class="dropdown">
-                <button onclick="dropdown()" style="color: blue;font-size: 14px;font-weight: bold;" class="dropbtn"><?php echo htmlspecialchars($_SESSION['siteusername']); ?><div style="width: 0px;height: 0;border-left: 5px solid transparent;border-right: 5px solid transparent;border-top: 6px solid #4908d4;margin-left: 3px;display: inherit;"></div></button>
+                <button onclick="dropdown()" class="dropbtn"><?php echo htmlspecialchars($_SESSION['siteusername']); ?><div class="dropdown arrow"></div></button>
                 <div id="dropdown-header" style="margin-left:6px;" class="dropdown-content">
                     <a href="/user/<?php echo htmlspecialchars($_SESSION['siteusername']); ?>">My Channel</a>
                     <a href="/channel_subscriptions?n=<?php echo htmlspecialchars($_SESSION['siteusername']); ?>">Subscriptions</a>
@@ -58,12 +58,6 @@
     <?php if(isset($_GET['userdoesntexist'])) { ?>
     <div class="alert" id="userdoesntexist" style="background-color: #FFA3A3;">
         This user does not exist!
-    </div>
-    <?php } ?>
-
-    <?php if(isset($_GET['groupdoesntexist'])) { ?>
-    <div class="alert" id="groupdoesntexist" style="background-color: #FFA3A3;">
-        This group does not exist!
     </div>
     <?php } ?>
 
@@ -118,8 +112,12 @@ window.onclick = function(event) {
 <?php
 $subscribed = array();
 
+// I bestow before þou, þe Humour:
+/*
 if($_SERVER['HTTP_USER_AGENT'] == "chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger chief queef would enjoy suck on my fat cokc because he is one horny nigger")
     header("Location: https://goku.com");
+*/
+// Grow þee up Chief, in þe good Name of þe Lord.
 
 if(isset($_SESSION['siteusername'])) {
     $stmt = $conn->prepare("SELECT * FROM subscribers WHERE sender = ? LIMIT 25");
@@ -131,11 +129,14 @@ if(isset($_SESSION['siteusername'])) {
     }
 }
 
+/*
+
 if(isset($_SESSION['siteusername']) && @$_SESSION['siteusername'] == "Valmoiiaa") 
     header("Location: /logout");
 
 if(isset($_SESSION['siteusername']) && @$_SESSION['siteusername'] == "diyamund") 
     header("Location: /logout");
+*/
 ?>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3933165557403387"
      crossorigin="anonymous"></script>

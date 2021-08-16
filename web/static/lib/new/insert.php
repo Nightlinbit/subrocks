@@ -95,12 +95,13 @@ class video_insert_utils {
     }
 
     function check_view($vidid, $user) {
+		$user = 'a'.time();
         $stmt = $this->conn->prepare("SELECT * FROM views WHERE viewer = ? AND videoid = ?");
         $stmt->bind_param("ss", $user, $vidid);
         $stmt->execute();
         $result = $stmt->get_result();
         if($result->num_rows === 0) {
-            $this->add_view($vidid, $user);
+            $this->add_view($vidid, 'a');
         }
         $stmt->close();
     }

@@ -48,13 +48,6 @@ class video_delete_utils {
         $stmt->bind_param("s", $rid);
         $stmt->execute();
         $stmt->close();
-    }  
-    
-    function unjoin_group($id) {
-        $stmt = $this->conn->prepare("DELETE FROM group_members WHERE rid = ?");
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-        $stmt->close();
-    }  
+    }    
 }
 ?>

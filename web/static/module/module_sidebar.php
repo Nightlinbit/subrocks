@@ -54,9 +54,6 @@ li a {
       <a href="/playlists">Playlists</a>
     </li>
     <li id="sidebar-item">
-      <a href="/groups">Groups</a>
-    </li>
-    <li id="sidebar-item">
       <a href="/channel_subscriptions?n=<?php echo htmlspecialchars($_SESSION['siteusername']); ?>">My Subscriptions</a>
     </li>
     <li id="sidebar-item">
